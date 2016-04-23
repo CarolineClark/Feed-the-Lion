@@ -10,7 +10,7 @@ function HandView:new(hand, offsetX, offsetY, scaleX, scaleY)
         offsetX = offsetX,
         offsetY = offsetY,
         scaleX = scaleX,
-        scaley= scaleY
+        scaley = scaleY
     }
     setmetatable(o, self)
     self.__index = self

@@ -1,21 +1,23 @@
-Icon = require "Icon"
+Food = require "Food"
 Hand = require "Hand"
 HandView = require "HandView"
 
 function love.load()
     love.graphics.setFont(love.graphics.newFont(11))
 
-    icon1 = Icon:new()
+    meat = Food:new()
     hand = Hand:new()
     handView = HandView:new(hand, 10, 50, 0.25, 0.25)
+
+    meatImg = love.graphics.newImage(meat.imgPath)
 
 end
 
 function love.draw()
 
     if love.mouse.isDown(1) then
-        icon1.x = love.mouse.getX()
-        icon1.y = love.mouse.getY()
+        meat.x = love.mouse.getX()
+        meat.y = love.mouse.getY()
     end
 
     hand:setImage(not love.mouse.isDown(1))
@@ -23,7 +25,13 @@ function love.draw()
     local handPosX = love.mouse.getX() - handView.offsetX
     local handPosY = love.mouse.getY() - handView.offsetY
 
-    love.graphics.rectangle("fill", icon1.x - 10, icon1.y - 10, icon1.width, icon1.height)
+    love.graphics.draw(meatImg,
+        meat.x - 20,
+        meat.y - 65,
+        0,
+        0.3,
+        0.3
+    )
     love.graphics.draw(
         handView:getImage(),
         handPosX,
@@ -33,6 +41,6 @@ function love.draw()
         handView.scaleY
     )
 
-    love.graphics.print(icon1.x, 50, 50)
+    love.graphics.print(meat.x, 50, 50)
     love.graphics.print(hand:getImage(), 50, 100)
 end
