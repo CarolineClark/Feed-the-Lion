@@ -1,13 +1,10 @@
 local constants = require "constants"
 
 local Hand = {
-    width = 32,
-    height = 32,
-    image = handOpen
+    image = constants.handOpen
 }
 
 function Hand:new(o)
-    -- return Icon:new{image = handOpenPath}
     o = o or {}
     setmetatable(o, self)
     self.__index = self
@@ -16,9 +13,9 @@ end
 
 function Hand:setImage(isOpen)
     if isOpen then
-        self.image = handOpen
+        self.image = constants.handOpen
     else
-        self.image = handClosed
+        self.image = constants.handClosed
     end
 end
 
