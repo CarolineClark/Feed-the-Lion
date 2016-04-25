@@ -1,6 +1,7 @@
 Food = require "Food"
 Hand = require "Hand"
 HandView = require "HandView"
+FoodView = require "FoodView"
 
 function love.load()
     love.graphics.setFont(love.graphics.newFont(11))
@@ -8,30 +9,36 @@ function love.load()
     meat = Food:new()
     hand = Hand:new()
     handView = HandView:new(hand, 10, 50, 0.25, 0.25)
-
-    meatImg = love.graphics.newImage(meat.imgPath)
+    meatView = FoodView:new(100, 100, 0.3, 0.3, meat.imgPath)
 
 end
 
 function love.draw()
 
-    if love.mouse.isDown(1) then
-        meat.x = love.mouse.getX()
-        meat.y = love.mouse.getY()
-    end
-
     hand:setImage(not love.mouse.isDown(1))
-
     local handPosX = love.mouse.getX() - handView.offsetX
     local handPosY = love.mouse.getY() - handView.offsetY
 
-    love.graphics.draw(meatImg,
-        meat.x - 20,
-        meat.y - 65,
+    local mouseX = love.mouse.getX()
+    local mouseY = love.mouse.getY()
+    local mouseOverMeat = meatView:isMouseOver(mouseX, mouseY)
+
+    if love.mouse.isDown(1) and mouseOverMeat then
+        meatView.x = mouseX - 20
+        meatView.y = mouseY - 65
+        -- meatView.x = mouseX
+        -- meatView.y = mouseY
+    end
+
+    love.graphics.draw(
+        meatView.image,
+        meatView.x,
+        meatView.y,
         0,
-        0.3,
-        0.3
+        meatView.scaleX,
+        meatView.scaleY
     )
+
     love.graphics.draw(
         handView:getImage(),
         handPosX,
@@ -41,6 +48,8 @@ function love.draw()
         handView.scaleY
     )
 
-    love.graphics.print(meat.x, 50, 50)
+    love.graphics.print(meatView.x, 50, 50)
     love.graphics.print(hand:getImage(), 50, 100)
+    love.graphics.print(tostring(mouseOverMeat), 50, 150)
+    love.graphics.print(meatView.scaleY, 50, 200)
 end

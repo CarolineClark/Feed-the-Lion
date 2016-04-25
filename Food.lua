@@ -6,7 +6,7 @@ local Food = {
     imgPath = constants.meatPath
 }
 
-function Food:new(imgPath)
+function Food:new()
     o = o or {}
     setmetatable(o, self)
     self.__index = self
