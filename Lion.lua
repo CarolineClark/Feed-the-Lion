@@ -1,7 +1,7 @@
 local constants = require "constants"
 
 local Lion = {
-    expression = constants.lionNeutral
+    expression = constants.lionHappy
 }
 
 function Lion:new(o)
@@ -9,6 +9,14 @@ function Lion:new(o)
     setmetatable(o, self)
     self.__index = self
     return o
+end
+
+function Lion:setHappy()
+    Lion:setExpression(constants.lionHappy)
+end
+
+function Lion:setNeutral()
+    Lion:setExpression(constants.lionNeutral)
 end
 
 function Lion:setExpression(expression)

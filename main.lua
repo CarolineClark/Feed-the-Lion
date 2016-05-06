@@ -1,15 +1,19 @@
 Food = require "Food"
 Hand = require "Hand"
+Lion = require "Lion"
 HandView = require "HandView"
 FoodView = require "FoodView"
+LionView = require "LionView"
 
 function love.load()
     love.graphics.setFont(love.graphics.newFont(11))
 
     meat = Food:new()
     hand = Hand:new()
+    lion = Lion:new()
     handView = HandView:new(hand, 10, 50, 0.25, 0.25)
     meatView = FoodView:new(100, 100, 0.3, 0.3, meat.imgPath)
+    lionView = LionView:new(lion, 100, 100, 0.3, 0.3)
     meatMoving = false
 end
 
@@ -23,6 +27,14 @@ function love.update()
         meatMoving = true
     elseif not love.mouse.isDown(1) then
         meatMoving = false
+    end
+
+    -- Calculate if the meat is above the lion
+    local widthOfLion = lionView:getImage():getWidth()
+    if lionView.x <= meatView.x and lionView.x + widthOfLion >= meatView.x then
+        lion:setHappy()
+    else
+        lion:setNeutral()
     end
 end
 
@@ -58,8 +70,18 @@ function love.draw()
         handView.scaleY
     )
 
+    love.graphics.draw(
+        lionView:getImage(),
+        lionView.x,
+        lionView.y,
+        0,
+        handView.scaleX,
+        handView.scaleY
+    )
+
     love.graphics.print(meatView.x, 50, 50)
-    love.graphics.print(hand:getImage(), 50, 100)
-    love.graphics.print(tostring(meatMoving), 50, 150)
-    love.graphics.print(meatView.scaleY, 50, 200)
+    love.graphics.print(hand:getImage(), 50, 75)
+    love.graphics.print(tostring(meatMoving), 50, 100)
+    love.graphics.print(meatView.scaleY, 50, 125)
+    love.graphics.print(lion:getExpression(), 50, 150)
 end
