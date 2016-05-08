@@ -13,7 +13,7 @@ function love.load()
     lion = Lion:new()
     handView = HandView:new(hand, 10, 50, 0.25, 0.25)
     meatView = FoodView:new(100, 100, 0.3, 0.3, meat.imgPath)
-    lionView = LionView:new(lion, 100, 100, 0.3, 0.3)
+    lionView = LionView:new(lion, 0.6, 0.6)
     meatMoving = false
 end
 
@@ -30,8 +30,9 @@ function love.update()
     end
 
     -- Calculate if the meat is above the lion
-    local widthOfLion = lionView:getImage():getWidth()
-    if lionView.x <= meatView.x and lionView.x + widthOfLion >= meatView.x then
+    local widthOfLion = lionView:getImage():getWidth() * lionView.scaleX
+    local heightOfLion = lionView:getImage():getHeight() * lionView.scaleY
+    if lionView.x <= meatView.x and lionView.x + widthOfLion >= meatView.x and lionView.y <= meatView.y and lionView.y + heightOfLion >= meatView.y then
         lion:setHappy()
     else
         lion:setNeutral()
@@ -53,6 +54,15 @@ function love.draw()
     end
 
     love.graphics.draw(
+        lionView:getImage(),
+        lionView.x,
+        lionView.y,
+        0,
+        lionView.scaleX,
+        lionView.scaleY
+    )
+
+    love.graphics.draw(
         meatView.image,
         meatView.x,
         meatView.y,
@@ -65,15 +75,6 @@ function love.draw()
         handView:getImage(),
         handPosX,
         handPosY,
-        0,
-        handView.scaleX,
-        handView.scaleY
-    )
-
-    love.graphics.draw(
-        lionView:getImage(),
-        lionView.x,
-        lionView.y,
         0,
         handView.scaleX,
         handView.scaleY

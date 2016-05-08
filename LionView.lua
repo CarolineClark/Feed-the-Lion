@@ -2,20 +2,18 @@ constants = require "constants"
 
 local LionView = {}
 
-function LionView:new(lion, offsetX, offsetY, scaleX, scaleY)
-    local x = 10
-    local y = 10
+function LionView:new(lion, scaleX, scaleY)
+    local x = 150
+    local y = 150
 
     o = {
-        happyImage = love.graphics.newImage(constants.handOpenPath),
+        happyImage = love.graphics.newImage(constants.lionHappyPath),
         sadImage = love.graphics.newImage(constants.handClosedPath),
         angryImage = love.graphics.newImage(constants.handClosedPath),
-        neutralImage = love.graphics.newImage(constants.handClosedPath),
+        neutralImage = love.graphics.newImage(constants.lionNeutralPath),
         lion = lion,
-        offsetX = offsetX,
-        offsetY = offsetY,
         scaleX = scaleX,
-        scaley = scaleY,
+        scaleY = scaleY,
         x = x,
         y = y
     }

@@ -8,7 +8,9 @@ local constants = {
     lionNeutral = "neutral",
     lionSad = "sad",
     lionHappy = "happy",
-    lionAngry = "angry"
+    lionAngry = "angry",
+    lionNeutralPath = "media/lion-neutral.png",
+    lionHappyPath = "media/lion-happy.png"
 }
 
 return constants
